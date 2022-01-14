@@ -1,6 +1,12 @@
 fun main() {
+    // LW#1
+    println(alignText("just a new string to test this work", 15, Alignment.LEFT))
+    println(alignText("aaaaaaaaaa vvvvvvvvvvvvvvv 23 wwwwwwwwwwwwwwwwwwwwww aaaaaaaaaaaaaaa xxxxxxxxx", 20, Alignment.CENTER))
+    println(alignText("223 11 2 666 77777777 525525252525", 2, Alignment.RIGHT))
+
+    println(alignText("223 1 2 666", 3, Alignment.CENTER))
     // LW#3
-    val shpFact = ShapeFactoryImpl()
+    /* val shpFact = ShapeFactoryImpl()
     val shapesList = listOf(
         shpFact.createCircle(15.13),
         shpFact.createSquare(0.01),
@@ -65,4 +71,5 @@ fun main() {
     )
     println("Shape with the maximal perimeter, max perimeter: " +
             "$maxPerimeter")
+     */
 }
