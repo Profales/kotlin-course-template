@@ -1,3 +1,5 @@
+import java.time.Year
+
 fun main() {
     // LW#1
     /*
@@ -77,7 +79,7 @@ fun main() {
      */
 
     // LW#4
-    val values: Array<Array<Int>> = Array(2) { Array(3) {2} }
+    /*val values: Array<Array<Int>> = Array(2) { Array(3) {2} }
     val testMatrix = Matrix(values)
     val firstMatrix = testMatrix
     val secondMatrix = Matrix(arrayOf(
@@ -111,5 +113,26 @@ fun main() {
     println()
     testMatrix[0, 1] = 5        // set
     println("get: " + testMatrix[0, 1].toString())   // get
-    println()
+    println()*/
+
+    // LW#5
+    val library = LibraryServiceImpl()
+    val bookNo1 = Book("Идиот", Author("Ф.М.Достоевский"),
+        Genre.NOVEL, Year.of(2015))
+    library.addBook(bookNo1)
+    val bookNo2 = Book("Игрок", Author("Ф.М.Достоевский"),
+        Genre.NOVEL, Year.of(2015))
+    library.addBook(bookNo2, Status.ComingSoon)
+    val bookNo3 = Book("Записки о Шерлоке Холмсе", Author("А.Конан Дойль"),
+        Genre.DETECTIVE, Year.of(2002))
+    library.addBook(bookNo3, Status.Available)
+    val userNo1 = User("И.Иванов")
+    val userNo2 = User("А.Алексеев")
+    library.registerUser(userNo1)
+    library.registerUser(userNo2)
+    library.takeBook(userNo1, bookNo1)
+    library.takeBook(userNo2, bookNo3)
+    library.setBookStatus(bookNo2, Status.Available)
+    library.takeBook(userNo1, bookNo2)
+    library.unregisterUser(userNo2)
 }
