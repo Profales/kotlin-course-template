@@ -8,6 +8,7 @@ fun main() {
     */
 
     // LW#3
+    /*
     val shpFact = ShapeFactoryImpl()
     val shapesList = listOf(
         shpFact.createCircle(15.13),
@@ -76,6 +77,7 @@ fun main() {
     shpFact.createRandomTriangle()
     shpFact.createRandomTriangle()
     shpFact.createRandomTriangle()
+    */
 
     // LW#4
     /*val values: Array<Array<Int>> = Array(2) { Array(3) { 2 } }
@@ -145,4 +147,54 @@ fun main() {
     library.takeBook(userNo1, bookNo2)
     library.unregisterUser(userNo2)
     */
+
+    //LW#6
+    val shapes = ShapeCollector<Shape>()
+    shapes.add(Square(5.0))
+    shapes.add(Square(2.0))
+    val figures = listOf(
+        Square(10.0),
+        Circle(5.0),
+        Rectangle(2.0, 1.0),
+        Triangle(3.0, 4.0, 5.0),
+        Square(20.0)
+    )
+    shapes.addAll(figures)
+    var shapesRes = shapes.getAll()
+    for ((j, i) in shapesRes.withIndex()){
+        println("Figure №${j+1}: ${i.javaClass}")
+    }
+    println()
+    shapesRes = shapes.getAllSorted(ShapeComparator.byAreaDesc)
+    for ((j, i) in shapesRes.withIndex()){
+        println("Figure №${j+1}: ${i.javaClass}, area - ${i.calcArea()}")
+    }
+    println()
+    shapesRes = shapes.getAllSorted(ShapeComparator.byAreaAsc)
+    for ((j, i) in shapesRes.withIndex()){
+        println("Figure №${j+1}: ${i.javaClass}, area - ${i.calcArea()}")
+    }
+    println()
+    shapesRes = shapes.getAllSorted(ShapeComparator.byPerimeterDesc)
+    for ((j, i) in shapesRes.withIndex()){
+        println("Figure №${j+1}: ${i.javaClass}, perimeter - ${i.calcPerimeter()}")
+    }
+    println()
+    shapesRes = shapes.getAllSorted(ShapeComparator.byPerimeterAsc)
+    for ((j, i) in shapesRes.withIndex()){
+        println("Figure №${j+1}: ${i.javaClass}, perimeter - ${i.calcPerimeter()}")
+    }
+    println()
+
+    // ??????? TODO: make getAllClass()
+    /*var circlesGetAll = shapes.getAllClass()
+    circlesGetAll = shapes.getAllSorted(ShapeComparator.byRadiusDesc)
+    for ((j, i) in getAllRes.withIndex()){
+        println("Figure №${j+1}: ${i.javaClass}, area - ${i.calcArea()}")
+    }
+    println()
+    circlesGetAll = shapes.getAllSorted(ShapeComparator.byRadiusAsc)
+    for ((j, i) in getAllRes.withIndex()){
+        println("Figure №${j+1}: ${i.javaClass}, area - ${i.calcArea()}")
+    }*/
 }
