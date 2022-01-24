@@ -186,7 +186,7 @@ fun main() {
     }
     println()
 
-    // ??????? TODO: make getAllClass()
+    // ??????? need to make getAllClass()
     /*var circlesGetAll = shapes.getAllClass()
     circlesGetAll = shapes.getAllSorted(ShapeComparator.byRadiusDesc)
     for ((j, i) in getAllRes.withIndex()){
