@@ -1,5 +1,3 @@
-import java.time.Year
-
 fun main() {
     // LW#1
     /*
@@ -10,7 +8,6 @@ fun main() {
     */
 
     // LW#3
-    /*
     val shpFact = ShapeFactoryImpl()
     val shapesList = listOf(
         shpFact.createCircle(15.13),
@@ -41,11 +38,9 @@ fun main() {
         if (shape.calcArea() > maxArea)
             maxArea = shape.calcArea()
     }
-    // Try adding program arguments at Run/Debug configuration
     println("Total area: $sumArea")
     println("Total perimeter: $sumPerimeter")
 
-    /* how can i make that better? */
     val shapeMinA = shapesList.find{it.calcArea() == minArea}
     val shapeMinP = shapesList.find{it.calcPerimeter() == minPerimeter}
     val shapeMaxA = shapesList.find{it.calcArea() == maxArea}
@@ -76,24 +71,32 @@ fun main() {
     )
     println("Shape with the maximal perimeter, max perimeter: " +
             "$maxPerimeter")
-     */
+
+    shpFact.createRandomTriangle()
+    shpFact.createRandomTriangle()
+    shpFact.createRandomTriangle()
+    shpFact.createRandomTriangle()
 
     // LW#4
-    /*val values: Array<Array<Int>> = Array(2) { Array(3) {2} }
+    /*val values: Array<Array<Int>> = Array(2) { Array(3) { 2 } }
     val testMatrix = Matrix(values)
     val firstMatrix = testMatrix
-    val secondMatrix = Matrix(arrayOf(
-        arrayOf(3, 1, 7),
-        arrayOf(15, 2, 0)
-    ))
+    val secondMatrix = Matrix(
+        arrayOf(
+            arrayOf(3, 1, 7),
+            arrayOf(15, 2, 0)
+        )
+    )
     println(testMatrix.toString())
     println()
     println("minus:\n" + (testMatrix - firstMatrix).toString())   // minus
     println()
-    println("times:\n" + (testMatrix*15).toString())  // times
+    println("times:\n" + (testMatrix * 15).toString())  // times
     println()
-    println("equals:\n" + (testMatrix == firstMatrix*2))    // equals
+    println("equals:\n" + (testMatrix == firstMatrix * 2))    // equals
     println()
+    val thirdMatrix = testMatrix
+    println("equals:\n" + (testMatrix == thirdMatrix))    // equals
     println(secondMatrix)
     secondMatrix += firstMatrix*5   // plusAssign
     println("plusAssign:\n" + secondMatrix.toString())
@@ -116,15 +119,21 @@ fun main() {
     println()*/
 
     // LW#5
-    val library = LibraryServiceImpl()
-    val bookNo1 = Book("Идиот", Author("Ф.М.Достоевский"),
-        Genre.NOVEL, Year.of(2015))
+    /* val library = LibraryServiceImpl()
+    val bookNo1 = Book(
+        "Идиот", Author("Ф.М.Достоевский"),
+        Genre.NOVEL, Year.of(2015)
+    )
     library.addBook(bookNo1)
-    val bookNo2 = Book("Игрок", Author("Ф.М.Достоевский"),
-        Genre.NOVEL, Year.of(2015))
+    val bookNo2 = Book(
+        "Игрок", Author("Ф.М.Достоевский"),
+        Genre.NOVEL, Year.of(2015)
+    )
     library.addBook(bookNo2, Status.ComingSoon)
-    val bookNo3 = Book("Записки о Шерлоке Холмсе", Author("А.Конан Дойль"),
-        Genre.DETECTIVE, Year.of(2002))
+    val bookNo3 = Book(
+        "Записки о Шерлоке Холмсе", Author("А.Конан Дойль"),
+        Genre.DETECTIVE, Year.of(2002)
+    )
     library.addBook(bookNo3, Status.Available)
     val userNo1 = User("И.Иванов")
     val userNo2 = User("А.Алексеев")
@@ -135,4 +144,5 @@ fun main() {
     library.setBookStatus(bookNo2, Status.Available)
     library.takeBook(userNo1, bookNo2)
     library.unregisterUser(userNo2)
+    */
 }
