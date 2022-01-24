@@ -12,7 +12,7 @@ class Matrix(
         if (mtrx.isEmpty() or mtrx[0].isEmpty())
             throw IllegalArgumentException("Matrix can't be empty.")
         val trueSize = mtrx[0].size
-        for (elem in mtrx){
+        for (elem in mtrx) {
             if (elem.size != trueSize)
                 throw IllegalArgumentException("Matrix can't have unequal columns.")
         }
@@ -23,7 +23,7 @@ class Matrix(
                 matrix[i][j] = mtrx[i][j]
     }
 
-    operator fun plus(other: Matrix): Matrix{
+    operator fun plus(other: Matrix): Matrix {
         if ((other.rows != this.rows) or (other.columns != this.columns))
             throw IllegalArgumentException("ERROR: The dimensions of the matrices do not match.")
         val result = Matrix(this.matrix)
@@ -45,7 +45,7 @@ class Matrix(
         val result = Matrix(this.matrix)
         for (i in 0 until result.rows)
             for (j in 0 until result.columns)
-                result[i, j] = scalar*this[i, j]
+                result[i, j] = scalar * this[i, j]
         return result
     }
 
@@ -57,35 +57,37 @@ class Matrix(
 
     operator fun set(i: Int, j: Int, value: Int) {
         if ((i >= rows) or (j >= columns)
-            or (i < 0) or (j < 0))
+            or (i < 0) or (j < 0)
+        )
             throw IllegalArgumentException("ERROR: Index is out of bounds.")
         matrix[i][j] = value
     }
 
     operator fun get(i: Int, j: Int): Int {
         if ((i >= rows) or (j >= columns)
-            or (i < 0) or (j < 0))
+            or (i < 0) or (j < 0)
+        )
             throw IllegalArgumentException("ERROR: Index is out of bounds.")
         return matrix[i][j]
     }
 
-    operator fun minus(other: Matrix): Matrix{
+    operator fun minus(other: Matrix): Matrix {
         return this + (-other)
     }
 
     operator fun unaryMinus(): Matrix {
-        return(this.times(-1))  // returns (-matrix)
+        return (this.times(-1))  // returns (-matrix)
     }
 
     operator fun unaryPlus(): Matrix {
         return this
     }
 
-    operator fun div(scalar: Int): Matrix{
+    operator fun div(scalar: Int): Matrix {
         val result = Matrix(this.matrix)
         for (i in 0 until result.rows)
             for (j in 0 until result.columns)
-                result[i, j] = this[i, j]/scalar
+                result[i, j] = this[i, j] / scalar
         return result
     }
 
@@ -101,7 +103,7 @@ class Matrix(
 
     override fun toString(): String {
         var resStr = ""
-        for (i in matrix.indices){
+        for (i in matrix.indices) {
             for (j in matrix[0].indices)
                 resStr += matrix[i][j].toString() + " "
             if (i != matrix.lastIndex)
@@ -117,17 +119,10 @@ class Matrix(
         // checking address
         if (this === other)
             return true
-
         other as Matrix
         // checking dimensions
         if ((rows != other.rows) or (columns != other.columns))
             return false
-        // checking values
-        for (i in matrix.indices)
-            for (j in matrix[0].indices)
-                if (this[i, j] != other[i, j])
-                    return false
-        // everything is ok!
-        return true
+        return matrix.contentDeepEquals(other.matrix)
     }
 }
