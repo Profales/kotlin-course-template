@@ -5,8 +5,6 @@ data class Book(
     val author: Author,
     val genre: Genre,
     val year: Year
-    // status is an updatable field
-    // we will make something else to store status of book
 )
 
 data class Author(val name: String)
@@ -37,7 +35,7 @@ interface LibraryService {
     fun getAllBooks(): List<Book>
     fun getAllAvailableBooks(): List<Book>
 
-    fun getBookStatus(book: Book): Status
+    fun getBookStatus(book: Book): Status?
     fun getAllBookStatuses(): Map<Book, Status>
 
     fun setBookStatus(book: Book, status: Status)
@@ -52,12 +50,12 @@ interface LibraryService {
 }
 
 class LibraryServiceImpl : LibraryService {
-    private val listOfBooks = mutableMapOf<Book,Status>()
-    private val listOfUsers = mutableListOf<User>()
+    private val listOfBooks = mutableMapOf<Book, Status>()
+    private val listOfUsers = mutableSetOf<User>()
 
     override fun findBooks(substring: String): List<Book> {
         val subList = mutableListOf<Book>()
-        for (i in listOfBooks){
+        for (i in listOfBooks) {
             if (i.key.name == substring)
                 subList.add(i.key)
         }
@@ -66,7 +64,7 @@ class LibraryServiceImpl : LibraryService {
 
     override fun findBooks(author: Author): List<Book> {
         val subList = mutableListOf<Book>()
-        for (i in listOfBooks){
+        for (i in listOfBooks) {
             if (i.key.author == author)
                 subList.add(i.key)
         }
@@ -75,7 +73,7 @@ class LibraryServiceImpl : LibraryService {
 
     override fun findBooks(year: Year): List<Book> {
         val subList = mutableListOf<Book>()
-        for (i in listOfBooks){
+        for (i in listOfBooks) {
             if (i.key.year == year)
                 subList.add(i.key)
         }
@@ -84,7 +82,7 @@ class LibraryServiceImpl : LibraryService {
 
     override fun findBooks(genre: Genre): List<Book> {
         val subList = mutableListOf<Book>()
-        for (i in listOfBooks){
+        for (i in listOfBooks) {
             if (i.key.genre == genre)
                 subList.add(i.key)
         }
@@ -97,32 +95,32 @@ class LibraryServiceImpl : LibraryService {
 
     override fun getAllAvailableBooks(): List<Book> {
         val subList = mutableListOf<Book>()
-        for (i in listOfBooks){
+        for (i in listOfBooks) {
             if (i.value == Status.Available)
                 subList.add(i.key)
         }
         return subList
     }
 
-    override fun getBookStatus(book: Book): Status {
-        for (i in listOfBooks){
+    override fun getBookStatus(book: Book): Status? {
+        for (i in listOfBooks) {
             if (i.key == book)
                 return i.value
         }
-        throw IllegalArgumentException("There's no book like this.")
+        return null
     }
+
 
     override fun getAllBookStatuses(): Map<Book, Status> {
         return listOfBooks.toMap()
     }
 
     override fun setBookStatus(book: Book, status: Status) {
-        if (listOfBooks.contains(book)){
-            if (listOfBooks[book] == status)
-                throw IllegalArgumentException("This book is already having that status.")
-            else listOfBooks[book] = status
-        }
-        else throw IllegalArgumentException("There's no such book in a library.")
+        if (!listOfBooks.contains(book))
+            throw IllegalArgumentException("There's no such book in a library.")
+        if (listOfBooks[book] == status)
+            throw IllegalArgumentException("This book is already having that status.")
+        listOfBooks[book] = status
     }
 
     override fun addBook(book: Book, status: Status) {
@@ -130,37 +128,34 @@ class LibraryServiceImpl : LibraryService {
     }
 
     override fun registerUser(user: User) {
+        if (listOfUsers.contains(user))
+            throw IllegalArgumentException("This user has already been registered.")
         listOfUsers.add(user)
     }
 
     override fun unregisterUser(user: User) {
-        if (listOfUsers.contains(user)){
-            for (i in listOfBooks){
-                if (i.value == Status.UsedBy(user))
-                    setBookStatus(i.key, Status.Available)
-            }
-            listOfUsers.remove(user)
+        if (listOfUsers.contains(user))
+            throw IllegalArgumentException("There's no such user registered in library.")
+        for (i in listOfBooks) {
+            if (i.value == Status.UsedBy(user))
+                setBookStatus(i.key, Status.Available)
         }
-        else throw IllegalArgumentException("There's no such user registered in library.")
+        listOfUsers.remove(user)
     }
 
     override fun takeBook(user: User, book: Book) {
-        // need to compute number of books that was taken by that user
-        // if that number is 3 or more, throw exception
         if (!listOfBooks.contains(book))
             throw IllegalArgumentException("There's no such book in a library.")
         if (!listOfUsers.contains(user))
             throw IllegalArgumentException("There's no such user registered in library.")
         if (computeUsersBooks(user) >= 3)
             throw IllegalArgumentException("Users aren't allowed to take more than 3 books.")
-        else{
-            setBookStatus(book, Status.UsedBy(user))
-        }
+        setBookStatus(book, Status.UsedBy(user))
     }
 
-    private fun computeUsersBooks(user: User): Int{
+    private fun computeUsersBooks(user: User): Int {
         var result = 0
-        for (i in listOfBooks){
+        for (i in listOfBooks) {
             if (i.value == Status.UsedBy(user))
                 result++
         }
