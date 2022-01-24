@@ -134,7 +134,7 @@ class LibraryServiceImpl : LibraryService {
     }
 
     override fun unregisterUser(user: User) {
-        if (listOfUsers.contains(user))
+        if (!listOfUsers.contains(user))
             throw IllegalArgumentException("There's no such user registered in library.")
         for (i in listOfBooks) {
             if (i.value == Status.UsedBy(user))
