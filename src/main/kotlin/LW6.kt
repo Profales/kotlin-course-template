@@ -26,7 +26,7 @@ class ShapeCollector<T : Shape> {
         return allShapes.sortedWith(comparator)
     }
 
-    //fun getAllByClass(classType: ??????????): List<T> {
-    //    /* ??????? */
-    //}
+    fun getAllByClass(classType: Class<out T>): List<T> {
+        return allShapes.filter { classType == it.javaClass }
+    }
 }

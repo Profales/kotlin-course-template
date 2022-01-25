@@ -149,6 +149,38 @@ fun main() {
     */
 
     //LW#6
+
+    val lambdaArea = { shapesList: List<Shape> ->
+        for ((j, i) in shapesList.withIndex()) {
+            println("Figure №${j + 1}: ${i.javaClass}, area - ${i.calcArea()}")
+        }
+        println()
+    }
+    val lambdaPerimeter = { shapesList: List<Shape> ->
+        for ((j, i) in shapesList.withIndex()) {
+            println("Figure №${j + 1}: ${i.javaClass}, perimeter - ${i.calcArea()}")
+        }
+        println()
+    }
+    val lambdaAreaPerimeter = { shapesList: List<Shape> ->
+        for ((j, i) in shapesList.withIndex()) {
+            println(
+                "Figure №${j + 1}: ${i.javaClass}, " +
+                        "area - ${i.calcArea()}, perimeter - ${i.calcPerimeter()}"
+            )
+        }
+        println()
+    }
+    val lambdaCircles = { circlesList: List<Circle> ->
+        for ((j, i) in circlesList.withIndex()) {
+            println(
+                "Figure №${j + 1}: ${i.javaClass}, " +
+                        "area - ${i.calcArea()}, perimeter - ${i.calcPerimeter()}"
+            )
+        }
+        println()
+    }
+
     val shapes = ShapeCollector<Shape>()
     shapes.add(Square(5.0))
     shapes.add(Square(2.0))
@@ -157,44 +189,44 @@ fun main() {
         Circle(5.0),
         Rectangle(2.0, 1.0),
         Triangle(3.0, 4.0, 5.0),
-        Square(20.0)
+        Square(20.0),
+        Circle(10.0)
     )
     shapes.addAll(figures)
     var shapesRes = shapes.getAll()
-    for ((j, i) in shapesRes.withIndex()){
-        println("Figure №${j+1}: ${i.javaClass}")
-    }
-    println()
-    shapesRes = shapes.getAllSorted(ShapeComparator.byAreaDesc)
-    for ((j, i) in shapesRes.withIndex()){
-        println("Figure №${j+1}: ${i.javaClass}, area - ${i.calcArea()}")
-    }
-    println()
-    shapesRes = shapes.getAllSorted(ShapeComparator.byAreaAsc)
-    for ((j, i) in shapesRes.withIndex()){
-        println("Figure №${j+1}: ${i.javaClass}, area - ${i.calcArea()}")
-    }
-    println()
-    shapesRes = shapes.getAllSorted(ShapeComparator.byPerimeterDesc)
-    for ((j, i) in shapesRes.withIndex()){
-        println("Figure №${j+1}: ${i.javaClass}, perimeter - ${i.calcPerimeter()}")
-    }
-    println()
-    shapesRes = shapes.getAllSorted(ShapeComparator.byPerimeterAsc)
-    for ((j, i) in shapesRes.withIndex()){
-        println("Figure №${j+1}: ${i.javaClass}, perimeter - ${i.calcPerimeter()}")
+    for ((j, i) in shapesRes.withIndex()) {
+        println("Figure №${j + 1}: ${i.javaClass}")
     }
     println()
 
-    // ??????? need to make getAllClass()
-    /*var circlesGetAll = shapes.getAllClass()
-    circlesGetAll = shapes.getAllSorted(ShapeComparator.byRadiusDesc)
-    for ((j, i) in getAllRes.withIndex()){
-        println("Figure №${j+1}: ${i.javaClass}, area - ${i.calcArea()}")
-    }
-    println()
-    circlesGetAll = shapes.getAllSorted(ShapeComparator.byRadiusAsc)
-    for ((j, i) in getAllRes.withIndex()){
-        println("Figure №${j+1}: ${i.javaClass}, area - ${i.calcArea()}")
-    }*/
+    shapesRes = shapes.getAllSorted(ShapeComparator.byAreaDesc)
+    lambdaArea.invoke(shapesRes)
+
+    shapesRes = shapes.getAllSorted(ShapeComparator.byAreaAsc)
+    lambdaArea.invoke(shapesRes)
+
+    shapesRes = shapes.getAllSorted(ShapeComparator.byPerimeterDesc)
+    lambdaPerimeter.invoke(shapesRes)
+
+    shapesRes = shapes.getAllSorted(ShapeComparator.byPerimeterAsc)
+    lambdaPerimeter.invoke(shapesRes)
+
+    val circlesList = ShapeCollector<Circle>()
+    circlesList.addAll(
+        listOf(
+            Circle(1.0),
+            Circle(5.0),
+            Circle(10.0)
+        )
+    )
+
+    shapesRes = circlesList.getAllSorted(ShapeComparator.byRadiusAsc)
+    lambdaCircles.invoke(shapesRes)
+    shapesRes = circlesList.getAllSorted(ShapeComparator.byRadiusDesc)
+    lambdaCircles.invoke(shapesRes)
+
+    shapesRes = shapes.getAllByClass(Square::class.java)
+    lambdaAreaPerimeter.invoke(shapesRes)
+    shapesRes = shapes.getAllByClass(Triangle::class.java)
+    lambdaAreaPerimeter.invoke(shapesRes)
 }
