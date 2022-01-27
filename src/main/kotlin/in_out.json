@@ -1,0 +1,40 @@
+[
+    {
+        "type": "Circle",
+        "radius": 15.0
+    },
+    {
+        "type": "Square",
+        "side": 10.0
+    },
+    {
+        "type": "Rectangle",
+        "first": 2.0,
+        "second": 1.5
+    },
+    {
+        "type": "Triangle",
+        "first": 3.0,
+        "second": 4.0,
+        "third": 5.0
+    },
+    {
+        "type": "Circle",
+        "radius": 15.0
+    },
+    {
+        "type": "Triangle",
+        "first": 100.5,
+        "second": 100.5,
+        "third": 100.5
+    },
+    {
+        "type": "Rectangle",
+        "first": 1.0,
+        "second": 2.1
+    },
+    {
+        "type": "Square",
+        "side": 5.0
+    }
+]

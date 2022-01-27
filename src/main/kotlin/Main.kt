@@ -149,7 +149,7 @@ fun main() {
     */
 
     //LW#6
-
+    /*
     val lambdaArea = { shapesList: List<Shape> ->
         for ((j, i) in shapesList.withIndex()) {
             println("Figure №${j + 1}: ${i.javaClass}, area - ${i.calcArea()}")
@@ -229,4 +229,22 @@ fun main() {
     lambdaAreaPerimeter.invoke(shapesRes)
     shapesRes = shapes.getAllByClass(Triangle::class.java)
     lambdaAreaPerimeter.invoke(shapesRes)
+    */
+
+    // LW#7
+    val filePath = "D:\\Labs\\kotlin-course-template\\src\\main\\kotlin\\in_out.json"
+
+    val ioFile = FileIO()
+    val serializer = SerializableShapes()
+
+    val shapes = serializer.decode(ioFile.read(filePath))
+    shapes.addAll(
+        listOf(
+            Circle(15.0),
+            Triangle(100.5, 100.5, 100.5),
+            Rectangle(1.0, 2.1),
+            Square(5.0)
+        )
+    )
+    ioFile.write(filePath, serializer.encode(shapes))
 }

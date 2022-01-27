@@ -2,12 +2,14 @@ import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.sqrt
 import kotlin.random.Random
+import kotlinx.serialization.Serializable
 
 interface Shape {
     fun calcArea(): Double
     fun calcPerimeter(): Double
 }
 
+@Serializable
 class Circle(val radius: Double) : Shape {
     init {
         if (radius <= 0)
@@ -23,6 +25,7 @@ class Circle(val radius: Double) : Shape {
     }
 }
 
+@Serializable
 class Square(val side: Double) : Shape {
 
     init {
@@ -38,6 +41,7 @@ class Square(val side: Double) : Shape {
     }
 }
 
+@Serializable
 class Triangle(
     val first: Double,
     val second: Double,
@@ -66,6 +70,7 @@ class Triangle(
     }
 }
 
+@Serializable
 class Rectangle(val first: Double, val second: Double) : Shape {
     init {
         if ((first <= 0) or (second <= 0))
